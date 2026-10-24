@@ -18,7 +18,6 @@
         .orb-1 { width: clamp(150px, 40vw, 300px); height: clamp(150px, 40vw, 300px); background: rgba(139, 92, 246, 0.6); top: 10%; left: 10%; }
         .orb-2 { width: clamp(150px, 30vw, 250px); height: clamp(150px, 30vw, 250px); background: rgba(6, 182, 212, 0.5); bottom: 15%; right: 15%; animation-delay: -5s; }
         @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.1); } }
-        
         .glass-card {
             position: relative; z-index: 1; width: 100%; max-width: 420px;
             padding: clamp(20px, 6vw, 40px) clamp(20px, 5vw, 30px);
@@ -33,14 +32,10 @@
             padding: 4px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; backdrop-filter: blur(5px); transition: all 0.3s; z-index: 10;
         }
         .lang-toggle:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
-        
-        h2 { color: #ffffff; text-align: center; font-size: clamp(20px, 5vw, 22px); font-weight: 600; margin-bottom: 8px; letter-spacing: 1px; margin-top: 10px; }
+        h2 { color: #fff; text-align: center; font-size: clamp(20px, 5vw, 22px); font-weight: 600; margin-bottom: 8px; letter-spacing: 1px; margin-top: 10px; }
         p.subtitle { color: rgba(255, 255, 255, 0.6); text-align: center; font-size: clamp(12px, 3vw, 13px); margin-bottom: 20px; }
-        
-        /* 核心区域：门禁与表单的切换 */
         .gate-wrapper, .form-wrapper { transition: opacity 0.5s ease, transform 0.5s ease; }
         .hidden { display: none !important; opacity: 0; }
-
         .input-group { margin-bottom: clamp(12px, 3vw, 15px); position: relative; }
         .input-group label { display: block; color: rgba(255, 255, 255, 0.8); font-size: clamp(12px, 3vw, 13px); margin-bottom: 6px; padding-left: 5px; }
         .input-group input, .input-group textarea {
@@ -51,34 +46,18 @@
         .input-group input:focus, .input-group textarea:focus {
             background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
-        
-        /* 按钮通用样式 */
         .btn-main {
             width: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px; padding: clamp(12px, 3vw, 14px); color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px; padding: clamp(12px, 3vw, 14px); color: #fff;
             font-size: clamp(15px, 4vw, 16px); font-weight: 600; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); margin-top: 10px;
         }
-        .btn-main:hover { background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%); box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
+        .btn-main:hover { background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%); box-shadow: 0 8px 20px rgba(255,255,255,0.15); transform: translateY(-2px); }
         .btn-main:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        
-        /* 门禁特定样式 */
-        .gate-area {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 30px 0; text-align: center; color: rgba(255,255,255,0.8);
-        }
+        .gate-area { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 0; text-align: center; color: rgba(255, 255, 255, 0.8); }
         .gate-icon { font-size: 40px; margin-bottom: 15px; color: #00ffcc; }
-
         #result { text-align: center; margin-top: 15px; font-size: clamp(12px, 3vw, 13px); color: #00ffcc; min-height: 20px; transition: color 0.3s; }
-        
-        .footer-contact {
-            text-align: center; margin-top: 20px; font-size: clamp(12px, 3vw, 13px);
-            color: rgba(255, 255, 255, 0.5); letter-spacing: 0.5px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px;
-        }
-        .footer-disclaimer {
-            text-align: center; margin-top: 10px; font-size: clamp(10px, 2.5vw, 11px);
-            color: rgba(255, 255, 255, 0.35); line-height: 1.4;
-        }
+        .footer-contact { text-align: center; margin-top: 20px; font-size: clamp(12px, 3vw, 13px); color: rgba(255, 255, 255, 0.5); letter-spacing: 0.5px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; }
+        .footer-disclaimer { text-align: center; margin-top: 10px; font-size: clamp(10px, 2.5vw, 11px); color: rgba(255, 255, 255, 0.35); line-height: 1.4; }
         .footer-disclaimer a { color: rgba(255, 255, 255, 0.5); text-decoration: none; }
         .footer-disclaimer a:hover { text-decoration: underline; }
     </style>
@@ -86,13 +65,10 @@
 <body>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
-
     <div class="glass-card">
         <button class="lang-toggle" id="langBtn">EN / 中</button>
         <h2 id="title">Connect with Me</h2>
         <p class="subtitle" id="subtitle">Please leave your contact info</p>
-        
-        <!-- 门禁验证区 -->
         <div class="gate-wrapper" id="gateWrapper">
             <div class="gate-area">
                 <div class="gate-icon">🔒</div>
@@ -100,16 +76,11 @@
                 <button type="button" class="btn-main" id="verifyBtn" onclick="passGate()">点击验证身份</button>
             </div>
         </div>
-
-        <!-- 表单区 -->
         <div class="form-wrapper hidden" id="formWrapper">
             <form id="contactForm">
                 <input type="hidden" name="access_key" value="ea2f1c95-46be-4d60-96a5-09b1272b5265">
                 <input type="hidden" name="subject" value="New Contact from Echo-From-The-Void">
                 <input type="hidden" name="from_name" value="Echo Contact Form">
-                <!-- 蜜罐反作弊 -->
-                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
                 <div class="input-group">
                     <label id="lbl-wechat">WeChat</label>
                     <input type="text" name="WeChat" id="ph-wechat" placeholder="Your WeChat ID">
@@ -130,156 +101,136 @@
                     <label id="lbl-remark">Remark (Optional)</label>
                     <textarea name="Remark" rows="2" id="ph-remark" placeholder="Anything else..."></textarea>
                 </div>
-                
                 <button type="submit" class="btn-main" id="submitBtn">Submit</button>
                 <div id="result"></div>
             </form>
         </div>
-
-        <div class="footer-contact" id="footer-contact">
-            Contact Us: +86 19353088208
-        </div>
-        
-        <div class="footer-disclaimer" id="footer-disclaimer">
-            This site is solely for collecting contact info. Source code is <a href="https://github.com/6ef1c6c/Echo-From-The-Void" target="_blank">fully open-source</a>.
-        </div>
+        <div class="footer-contact" id="footer-contact">Contact Us: +86 19353088208</div>
+        <div class="footer-disclaimer" id="footer-disclaimer">This site is solely for collecting contact info. Source code is <a href="https://github.com/6ef1c6c/Echo-From-The-Void" target="_blank">fully open-source</a>.</div>
     </div>
-
-<script>
-    const translations = {
-        en: {
-            title: "Connect with Me", subtitle: "Please leave your contact info",
-            gateMsg: "Please verify you are human first.",
-            verifyBtn: "Tap to Verify",
-            lblWechat: "WeChat", phWechat: "Your WeChat ID",
-            lblWhatsapp: "WhatsApp", phWhatsapp: "+86 138 0000 0000",
-            lblFacebook: "Facebook", phFacebook: "Your FB account or URL",
-            lblPhone: "Phone", phPhone: "Your phone number",
-            lblRemark: "Remark (Optional)", phRemark: "Anything else...",
-            btnSubmit: "Submit", btnSubmitting: "Submitting...",
-            errEmpty: "Please fill in at least one contact method!",
-            msgSuccess: "Success! I will contact you soon.",
-            msgFail: "Failed. Please try again.", msgNetErr: "Network error. Please try later.",
-            footerContact: "Contact Us: +86 19353088208",
-            footerDisclaimer: 'This site is solely for collecting contact info. Source code is <a href="https://github.com/6ef1c6c/Echo-From-The-Void" target="_blank">fully open-source</a>.'
-        },
-        zh: {
-            title: "联系我", subtitle: "请留下您方便的联系方式",
-            gateMsg: "为防恶意提交，请先验证身份",
-            verifyBtn: "点击验证身份",
-            lblWechat: "微信", phWechat: "您的微信号",
-            lblWhatsapp: "WhatsApp", phWhatsapp: "+86 138 0000 0000",
-            lblFacebook: "Facebook", phFacebook: "您的 FB 账号或主页链接",
-            lblPhone: "手机号", phPhone: "请填写您的手机号码",
-            lblRemark: "备注信息 (选填)", phRemark: "其他想说的话...",
-            btnSubmit: "提交联系方式", btnSubmitting: "正在提交...",
-            errEmpty: "请至少填写一种联系方式！",
-            msgSuccess: "提交成功！我会尽快联系您。",
-            msgFail: "提交失败，请刷新重试。", msgNetErr: "网络异常，请稍后再试。",
-            footerContact: "联系我们: +86 19353088208",
-            footerDisclaimer: '本网站仅用于收集联系方式，无其他任何用途。本站代码<a href="https://github.com/6ef1c6c/Echo-From-The-Void" target="_blank">完全开源</a>。'
-        }
-    };
-
-    let currentLang = localStorage.getItem('siteLang') || 'en';
-    const langBtn = document.getElementById('langBtn');
-    const result = document.getElementById('result');
-    const submitBtn = document.getElementById('submitBtn');
-
-    function applyLanguage(lang) {
-        const t = translations[lang];
-        document.getElementById('title').innerText = t.title;
-        document.getElementById('subtitle').innerText = t.subtitle;
-        document.getElementById('gateMsg').innerText = t.gateMsg;
-        document.getElementById('verifyBtn').innerText = t.verifyBtn;
-        document.getElementById('lbl-wechat').innerText = t.lblWechat;
-        document.getElementById('ph-wechat').placeholder = t.phWechat;
-        document.getElementById('lbl-whatsapp').innerText = t.lblWhatsapp;
-        document.getElementById('ph-whatsapp').placeholder = t.phWhatsapp;
-        document.getElementById('lbl-facebook').innerText = t.lblFacebook;
-        document.getElementById('ph-facebook').placeholder = t.phFacebook;
-        document.getElementById('lbl-phone').innerText = t.lblPhone;
-        document.getElementById('ph-phone').placeholder = t.phPhone;
-        document.getElementById('lbl-remark').innerText = t.lblRemark;
-        document.getElementById('ph-remark').placeholder = t.phRemark;
-        document.getElementById('submitBtn').innerText = t.btnSubmit;
-        document.getElementById('footer-contact').innerText = t.footerContact;
-        document.getElementById('footer-disclaimer').innerHTML = t.footerDisclaimer;
-        
-        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-        localStorage.setItem('siteLang', lang);
-    }
-
-    langBtn.addEventListener('click', () => {
-        currentLang = currentLang === 'en' ? 'zh' : 'en';
-        applyLanguage(currentLang);
-    });
-
-    applyLanguage(currentLang);
-
-    // 门禁验证逻辑
-    function passGate() {
-        const gateBtn = document.getElementById('verifyBtn');
-        gateBtn.innerText = "Verifying...";
-        gateBtn.disabled = true;
-        
-        // 模拟一点验证耗时，体验更好
-        setTimeout(() => {
-            document.getElementById('gateWrapper').classList.add('hidden');
-            const formWrap = document.getElementById('formWrapper');
-            formWrap.classList.remove('hidden');
-            // 加个微小的动画
-            formWrap.style.opacity = 0;
-            setTimeout(() => { formWrap.style.opacity = 1; }, 50);
-        }, 600);
-    }
-
-    document.getElementById('contactForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const t = translations[currentLang];
-
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData);
-        
-        if (!data.WeChat && !data.WhatsApp && !data.Facebook && !data.Phone) {
-            result.style.color = "#ff6b6b";
-            result.innerHTML = t.errEmpty;
-            return;
-        }
-
-        submitBtn.innerText = t.btnSubmitting;
-        submitBtn.disabled = true;
-        result.innerHTML = "";
-
-        try {
-            const response = await fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            const json = await response.json();
-
-            if (response.status === 200) {
-                result.style.color = "#00ffcc";
-                result.innerHTML = t.msgSuccess;
-                e.target.reset();
-            } else {
-                console.error(json);
-                result.style.color = "#ff6b6b";
-                result.innerHTML = t.msgFail;
+    <script>
+        const translations = {
+            en: {
+                title: "Connect with Me", subtitle: "Please leave your contact info",
+                gateMsg: "Please verify you are human first.", verifyBtn: "Tap to Verify",
+                lblWechat: "WeChat", phWechat: "Your WeChat ID",
+                lblWhatsapp: "WhatsApp", phWhatsapp: "+86 138 0000 0000",
+                lblFacebook: "Facebook", phFacebook: "Your FB account or URL",
+                lblPhone: "Phone", phPhone: "Your phone number",
+                lblRemark: "Remark (Optional)", phRemark: "Anything else...",
+                btnSubmit: "Submit", btnSubmitting: "Submitting...",
+                errEmpty: "Please fill in at least one contact method!",
+                msgSuccess: "Success! I will contact you soon.",
+                msgFail: "Failed. Please try again.", msgNetErr: "Network error. Please try later.",
+                footerContact: "Contact Us: +86 19353088208",
+                footerDisclaimer: 'This site is solely for collecting contact info. Source code is <a href="https://github.com/6ef1c6c/Echo-From-The-Void" target="_blank">fully open-source</a>.'
+            },
+            zh: {
+                title: "联系我", subtitle: "请留下您方便的联系方式",
+                gateMsg: "为防恶意提交，请先验证身份", verifyBtn: "点击验证身份",
+                lblWechat: "微信", phWechat: "您的微信号",
+                lblWhatsapp: "WhatsApp", phWhatsapp: "+86 138 0000 0000",
+                lblFacebook: "Facebook", phFacebook: "您的 FB 账号或主页链接",
+                lblPhone: "手机号", phPhone: "请填写您的手机号码",
+                lblRemark: "备注信息 (选填)", phRemark: "其他想说的话...",
+                btnSubmit: "提交联系方式", btnSubmitting: "正在提交...",
+                errEmpty: "请至少填写一种联系方式！",
+                msgSuccess: "提交成功！我会尽快联系您。",
+                msgFail: "提交失败，请刷新重试。", msgNetErr: "网络异常，请稍后再试。",
+                footerContact: "联系我们: +86 19353088208",
+                footerDisclaimer: '本网站仅用于收集联系方式，无其他任何用途。本站代码<a href="https://github.com/6ef1c6c/Echo-From-The-Void" target="_blank">完全开源</a>。'
             }
-        } catch (error) {
-            result.style.color = "#ff6b6b";
-            result.innerHTML = t.msgNetErr;
-        } finally {
-            submitBtn.innerText = t.btnSubmit;
-            submitBtn.disabled = false;
+        };
+
+        let currentLang = localStorage.getItem('siteLang') || 'en';
+        const langBtn = document.getElementById('langBtn');
+        const result = document.getElementById('result');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            document.getElementById('title').innerText = t.title;
+            document.getElementById('subtitle').innerText = t.subtitle;
+            document.getElementById('gateMsg').innerText = t.gateMsg;
+            document.getElementById('verifyBtn').innerText = t.verifyBtn;
+            document.getElementById('lbl-wechat').innerText = t.lblWechat;
+            document.getElementById('ph-wechat').placeholder = t.phWechat;
+            document.getElementById('lbl-whatsapp').innerText = t.lblWhatsapp;
+            document.getElementById('ph-whatsapp').placeholder = t.phWhatsapp;
+            document.getElementById('lbl-facebook').innerText = t.lblFacebook;
+            document.getElementById('ph-facebook').placeholder = t.phFacebook;
+            document.getElementById('lbl-phone').innerText = t.lblPhone;
+            document.getElementById('ph-phone').placeholder = t.phPhone;
+            document.getElementById('lbl-remark').innerText = t.lblRemark;
+            document.getElementById('ph-remark').placeholder = t.phRemark;
+            document.getElementById('submitBtn').innerText = t.btnSubmit;
+            document.getElementById('footer-contact').innerText = t.footerContact;
+            document.getElementById('footer-disclaimer').innerHTML = t.footerDisclaimer;
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+            localStorage.setItem('siteLang', lang);
         }
-    });
-</script>
+
+        langBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            applyLanguage(currentLang);
+        });
+
+        applyLanguage(currentLang);
+
+        function passGate() {
+            const gateBtn = document.getElementById('verifyBtn');
+            gateBtn.innerText = "Verifying...";
+            gateBtn.disabled = true;
+            setTimeout(() => {
+                document.getElementById('gateWrapper').classList.add('hidden');
+                const formWrap = document.getElementById('formWrapper');
+                formWrap.classList.remove('hidden');
+                formWrap.style.opacity = 0;
+                setTimeout(() => { formWrap.style.opacity = 1; }, 50);
+            }, 600);
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const t = translations[currentLang];
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            if (!data.WeChat && !data.WhatsApp && !data.Facebook && !data.Phone) {
+                result.style.color = "#ff6b6b";
+                result.innerHTML = t.errEmpty;
+                return;
+            }
+
+            submitBtn.innerText = t.btnSubmitting;
+            submitBtn.disabled = true;
+            result.innerHTML = "";
+
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const json = await response.json();
+                
+                if (response.status === 200) {
+                    result.style.color = "#00ffcc";
+                    result.innerHTML = t.msgSuccess;
+                    e.target.reset();
+                } else {
+                    console.error(json);
+                    result.style.color = "#ff6b6b";
+                    result.innerHTML = t.msgFail;
+                }
+            } catch (error) {
+                result.style.color = "#ff6b6b";
+                result.innerHTML = t.msgNetErr;
+            } finally {
+                submitBtn.innerText = t.btnSubmit;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
 </body>
 </html>
