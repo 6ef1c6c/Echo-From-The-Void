@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Echo</title>
+    <!-- 1. hCaptcha 官方 API 脚本 -->
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <!-- 2. Web3Forms 客户端桥接脚本 (解决初始化报错) -->
+    <script src="https://web3forms.com/client/script.js" async defer></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { overflow: hidden; }
@@ -189,7 +192,6 @@
         document.getElementById('ph-remark').placeholder = t.phRemark;
         document.getElementById('submitBtn').innerText = t.btnSubmit;
         document.getElementById('footer-contact').innerText = t.footerContact;
-        // 渲染开源声明 HTML
         document.getElementById('footer-disclaimer').innerHTML = t.footerDisclaimer;
         
         document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
