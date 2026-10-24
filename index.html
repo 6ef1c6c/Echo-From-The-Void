@@ -113,7 +113,6 @@
             lblCaptcha: "Verification:", btnSubmit: "Submit", btnSubmitting: "Submitting...",
             errEmpty: "Please fill in at least one contact method!",
             errCaptcha: "Incorrect verification code!",
-            errCooldown: "You have submitted recently. Please try again 24 hours later.",
             msgSuccess: "Success! I will contact you soon.",
             msgFail: "Failed. Please try again.", msgNetErr: "Network error. Please try later."
         },
@@ -127,7 +126,6 @@
             lblCaptcha: "防刷验证:", btnSubmit: "提交联系方式", btnSubmitting: "正在提交...",
             errEmpty: "请至少填写一种联系方式！",
             errCaptcha: "验证码错误！",
-            errCooldown: "您近期已提交过，请 24 小时后再试。",
             msgSuccess: "提交成功！我会尽快联系您。",
             msgFail: "提交失败，请刷新重试。", msgNetErr: "网络异常，请稍后再试。"
         }
@@ -186,15 +184,6 @@
         e.preventDefault();
         const t = translations[currentLang];
 
-        // 检查24小时冷却
-        const lastSubmit = localStorage.getItem('lastSubmitTime');
-        const now = Date.now();
-        if (lastSubmit && (now - lastSubmit < 24 * 60 * 60 * 1000)) {
-            result.style.color = "#ff6b6b";
-            result.innerHTML = t.errCooldown;
-            return;
-        }
-
         // 检查验证码
         if (parseInt(captchaInput.value) !== currentCaptchaAnswer) {
             result.style.color = "#ff6b6b";
@@ -237,7 +226,6 @@
                 result.innerHTML = t.msgSuccess;
                 e.target.reset();
                 generateCaptcha();
-                localStorage.setItem('lastSubmitTime', Date.now());
             } else {
                 console.error(json);
                 result.style.color = "#ff6b6b";
