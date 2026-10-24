@@ -46,6 +46,9 @@
         .input-group input:focus, .input-group textarea:focus {
             background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
+        .captcha-group { display: flex; align-items: center; gap: 10px; }
+        .captcha-group input { width: 100px; text-align: center; }
+        .captcha-text { color: #00ffcc; font-weight: bold; font-size: clamp(14px, 4vw, 16px); }
         .btn-main {
             width: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
             border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px; padding: clamp(12px, 3vw, 14px); color: #fff;
@@ -101,6 +104,11 @@
                     <label id="lbl-remark">Remark (Optional)</label>
                     <textarea name="Remark" rows="2" id="ph-remark" placeholder="Anything else..."></textarea>
                 </div>
+                <div class="input-group captcha-group">
+                    <label id="lbl-captcha" style="width:100%;">Verification:</label>
+                    <input type="number" id="captchaInput" required placeholder="?">
+                    <span class="captcha-text" id="captchaQuestion"></span>
+                </div>
                 <button type="submit" class="btn-main" id="submitBtn">Submit</button>
                 <div id="result"></div>
             </form>
@@ -118,8 +126,9 @@
                 lblFacebook: "Facebook", phFacebook: "Your FB account or URL",
                 lblPhone: "Phone", phPhone: "Your phone number",
                 lblRemark: "Remark (Optional)", phRemark: "Anything else...",
-                btnSubmit: "Submit", btnSubmitting: "Submitting...",
+                lblCaptcha: "Verification:", btnSubmit: "Submit", btnSubmitting: "Submitting...",
                 errEmpty: "Please fill in at least one contact method!",
+                errCaptcha: "Incorrect verification code!",
                 msgSuccess: "Success! I will contact you soon.",
                 msgFail: "Failed. Please try again.", msgNetErr: "Network error. Please try later.",
                 footerContact: "Contact Us: +86 19353088208",
@@ -133,8 +142,9 @@
                 lblFacebook: "Facebook", phFacebook: "您的 FB 账号或主页链接",
                 lblPhone: "手机号", phPhone: "请填写您的手机号码",
                 lblRemark: "备注信息 (选填)", phRemark: "其他想说的话...",
-                btnSubmit: "提交联系方式", btnSubmitting: "正在提交...",
+                lblCaptcha: "防刷验证:", btnSubmit: "提交联系方式", btnSubmitting: "正在提交...",
                 errEmpty: "请至少填写一种联系方式！",
+                errCaptcha: "验证码错误！",
                 msgSuccess: "提交成功！我会尽快联系您。",
                 msgFail: "提交失败，请刷新重试。", msgNetErr: "网络异常，请稍后再试。",
                 footerContact: "联系我们: +86 19353088208",
@@ -146,6 +156,17 @@
         const langBtn = document.getElementById('langBtn');
         const result = document.getElementById('result');
         const submitBtn = document.getElementById('submitBtn');
+        const captchaInput = document.getElementById('captchaInput');
+        const captchaQuestion = document.getElementById('captchaQuestion');
+        let currentCaptchaAnswer = 0;
+
+        function generateCaptcha() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            currentCaptchaAnswer = num1 + num2;
+            captchaQuestion.innerText = `${num1} + ${num2} =`;
+            captchaInput.value = '';
+        }
 
         function applyLanguage(lang) {
             const t = translations[lang];
@@ -163,6 +184,7 @@
             document.getElementById('ph-phone').placeholder = t.phPhone;
             document.getElementById('lbl-remark').innerText = t.lblRemark;
             document.getElementById('ph-remark').placeholder = t.phRemark;
+            document.getElementById('lbl-captcha').innerText = t.lblCaptcha;
             document.getElementById('submitBtn').innerText = t.btnSubmit;
             document.getElementById('footer-contact').innerText = t.footerContact;
             document.getElementById('footer-disclaimer').innerHTML = t.footerDisclaimer;
@@ -176,6 +198,7 @@
         });
 
         applyLanguage(currentLang);
+        generateCaptcha();
 
         function passGate() {
             const gateBtn = document.getElementById('verifyBtn');
@@ -196,11 +219,20 @@
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
             
+            if (parseInt(captchaInput.value) !== currentCaptchaAnswer) {
+                result.style.color = "#ff6b6b";
+                result.innerHTML = t.errCaptcha;
+                generateCaptcha();
+                return;
+            }
+
             if (!data.WeChat && !data.WhatsApp && !data.Facebook && !data.Phone) {
                 result.style.color = "#ff6b6b";
                 result.innerHTML = t.errEmpty;
                 return;
             }
+
+            delete data.captchaInput;
 
             submitBtn.innerText = t.btnSubmitting;
             submitBtn.disabled = true;
@@ -218,6 +250,7 @@
                     result.style.color = "#00ffcc";
                     result.innerHTML = t.msgSuccess;
                     e.target.reset();
+                    generateCaptcha();
                 } else {
                     console.error(json);
                     result.style.color = "#ff6b6b";
