@@ -129,6 +129,8 @@
                 lblCaptcha: "Verification:", btnSubmit: "Submit", btnSubmitting: "Submitting...",
                 errEmpty: "Please fill in at least one contact method!",
                 errCaptcha: "Incorrect verification code!",
+                errFast: "Submission too fast. Please try again.",
+                errCooldown: "Please wait 3 minutes before submitting again.",
                 msgSuccess: "Success! I will contact you soon.",
                 msgFail: "Failed. Please try again.", msgNetErr: "Network error. Please try later.",
                 footerContact: "Contact Us: +86 19353088208",
@@ -145,6 +147,8 @@
                 lblCaptcha: "防刷验证:", btnSubmit: "提交联系方式", btnSubmitting: "正在提交...",
                 errEmpty: "请至少填写一种联系方式！",
                 errCaptcha: "验证码错误！",
+                errFast: "提交速度过快，请重试。",
+                errCooldown: "请等待 3 分钟后再试。",
                 msgSuccess: "提交成功！我会尽快联系您。",
                 msgFail: "提交失败，请刷新重试。", msgNetErr: "网络异常，请稍后再试。",
                 footerContact: "联系我们: +86 19353088208",
@@ -159,11 +163,16 @@
         const captchaInput = document.getElementById('captchaInput');
         const captchaQuestion = document.getElementById('captchaQuestion');
         let currentCaptchaAnswer = 0;
+        let formLoadTime = 0;
 
         function generateCaptcha() {
-            const num1 = Math.floor(Math.random() * 10) + 1;
-            const num2 = Math.floor(Math.random() * 10) + 1;
-            currentCaptchaAnswer = num1 + num2;
+            let num1, num2, newAnswer;
+            do {
+                num1 = Math.floor(Math.random() * 10) + 1;
+                num2 = Math.floor(Math.random() * 10) + 1;
+                newAnswer = num1 + num2;
+            } while (newAnswer === currentCaptchaAnswer);
+            currentCaptchaAnswer = newAnswer;
             captchaQuestion.innerText = `${num1} + ${num2} =`;
             captchaInput.value = '';
         }
@@ -210,15 +219,33 @@
                 formWrap.classList.remove('hidden');
                 formWrap.style.opacity = 0;
                 setTimeout(() => { formWrap.style.opacity = 1; }, 50);
+                formLoadTime = Date.now(); // 记录进入表单的时间
             }, 600);
         }
 
         document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const t = translations[currentLang];
+
+            // 1. 提交时间过快拦截（小于3秒）
+            if (Date.now() - formLoadTime < 3000) {
+                result.style.color = "#ff6b6b";
+                result.innerHTML = t.errFast;
+                return;
+            }
+
+            // 2. 本地 3 分钟（180000 毫秒）冷却拦截
+            const lastSubmit = localStorage.getItem('lastSubmitTime');
+            if (lastSubmit && (Date.now() - lastSubmit < 180000)) {
+                result.style.color = "#ff6b6b";
+                result.innerHTML = t.errCooldown;
+                return;
+            }
+
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
             
+            // 3. 验证码拦截
             if (parseInt(captchaInput.value) !== currentCaptchaAnswer) {
                 result.style.color = "#ff6b6b";
                 result.innerHTML = t.errCaptcha;
@@ -226,6 +253,7 @@
                 return;
             }
 
+            // 4. 空字段拦截
             if (!data.WeChat && !data.WhatsApp && !data.Facebook && !data.Phone) {
                 result.style.color = "#ff6b6b";
                 result.innerHTML = t.errEmpty;
@@ -251,6 +279,7 @@
                     result.innerHTML = t.msgSuccess;
                     e.target.reset();
                     generateCaptcha();
+                    localStorage.setItem('lastSubmitTime', Date.now()); // 记录成功提交的时间
                 } else {
                     console.error(json);
                     result.style.color = "#ff6b6b";
